@@ -33,6 +33,7 @@ export const Sandbox = () => {
           <Item>Item 3</Item>
         </div>
       </>
-    ) : <></>
+    ) : <>
+      </>
   )
 };

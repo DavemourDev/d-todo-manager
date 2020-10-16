@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { dateToIsoString } from '../../helpers/date-helpers';
 
 type DateSelectorProps = {
-  value: Date,
+  value?: Date,
   onChange: (date: Date) => void
 }
 
@@ -19,7 +19,7 @@ export const DateSelector = ({ value, onChange }: DateSelectorProps) => {
   return (
     <div className="form-group">
       <label className="label">Fecha</label>
-      <input type="date" min="2020-01-01" max="2099-12-31" value={dateToIsoString(value)} onChange={ (ev) => handler(ev) } />
+      <input type="date" name="date" value={ dateToIsoString(value) } min="2020-01-01" max="2099-12-31" onChange={ (ev) => handler(ev) } />
     </div>
   );
 }

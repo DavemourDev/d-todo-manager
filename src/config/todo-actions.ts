@@ -1,6 +1,6 @@
 import { Action } from "../interfaces/Action";
 import { Todo } from "../interfaces/Todo";
-import { loadTodos } from "../services/storage";
+import { loadTodosFromCustomKey, loadTodosFromDateKey } from "../services/storage";
 
 const ACTIONS = {
 
@@ -13,13 +13,15 @@ const ACTIONS = {
     SORT_PRIORITY_DESC: 'Sort for priority descendent',
     SORT_COMPLETED_FIRST: 'Sort completed todos first',
     SORT_PENDING_FIRST: 'Sort pending todos first',
-    GET_TODOS_FROM_DATE: 'Gets todos from date',
+    GET_TODO_LIST_FROM_KEY_DATE: 'Gets todos from a given date list key',
+    GET_TODO_LIST_FROM_CUSTOM_KEY: 'Gets todos from a given custom list key',
     SET_TODO_PRIORITY: 'Set todo priority',
     MARK_ALL_AS_COMPLETED: 'Set all todos state to complete',
     MARK_ALL_AS_PENDING: 'Set all todos state to pending',
     DELETE_ALL_COMPLETED: 'Delete all completed todos',
     DELETE_ALL_PENDING: 'Delete all pending todos',
-    TOGGLE_ALL: 'Toggle all todos completion state'
+    TOGGLE_ALL: 'Toggle all todos completion state',
+    IMPORT_TODOS: 'Import todos from an external source' 
 };
 
 const newTodo = (name: string): Todo => {
@@ -63,8 +65,10 @@ const reducer = (todos: Todo[], action: Action): Todo[] => {
         case ACTIONS.SORT_PENDING_FIRST:
             reduced = todos.sort((a, b) => (a.completed ? 1 : 0) - (b.completed ? 1 : 0));
             return Array.from(reduced);
-        case ACTIONS.GET_TODOS_FROM_DATE:
-            return loadTodos(action.payload.date);
+            case ACTIONS.GET_TODO_LIST_FROM_KEY_DATE:
+            return loadTodosFromDateKey(action.payload.key);
+        case ACTIONS.GET_TODO_LIST_FROM_CUSTOM_KEY:
+            return loadTodosFromCustomKey(action.payload.key);
         case ACTIONS.SET_TODO_PRIORITY:
             return todos.map(todo => { 
                 if (todo.id === action.payload.id) { 
@@ -91,6 +95,8 @@ const reducer = (todos: Todo[], action: Action): Todo[] => {
             return todos.filter(todo => !todo.completed);
         case ACTIONS.DELETE_ALL_PENDING:
             return todos.filter(todo => todo.completed);
+        case ACTIONS.IMPORT_TODOS:
+            return [...action.payload.data];
         default: 
             return todos; 
     }

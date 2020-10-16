@@ -57,7 +57,7 @@ code, pre {
 }
 
 /* BUTTONS */
-button {
+button, .button {
   padding: $button-padding;
   cursor: pointer;
   background: $dark-gray;
@@ -126,6 +126,10 @@ table {
   grid-template-rows: $toolbar-item-size;
   color: $lighter-gray;
   box-sizing: border-box;
+
+  & + .toolbar {
+    margin-left: $default-gap;
+  }
 
   .toolbar-item-container {
     
@@ -201,6 +205,9 @@ table {
   }
 }
 
+.input-file {
+  display: none;
+}
 
 /* FLEXBOX */
 
@@ -250,7 +257,7 @@ table {
 /* DIALOG */
 
 .dialog--overlay {
-  
+  z-index: 10;
   position: fixed;
   top: 0;
   left: 0;
@@ -265,26 +272,4 @@ table {
 
 .dialog {
   text-align: center;
-}
-
-.dialog-enter {
-  opacity: 0.01;
-  transform: scale(1.1)
-}
-
-.dialog-enter-active {
-  opacity: 1;
-  transform: scale(1);
-  transition: all 300ms;
-}
-
-.dialog-exit {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.dialog-exit-active {
-  opacity: 0.01;
-  transform: scale(1.1);
-  transition: all 300ms;
 }

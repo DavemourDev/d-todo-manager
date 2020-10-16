@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 type DialogProps = {
   isOpen: boolean;
@@ -9,21 +8,18 @@ type DialogProps = {
 export const Dialog = ({ isOpen, onClose, children }: DialogProps) => {
 
   return (
-    <TransitionGroup component={null}>
-      {isOpen && (
-        <CSSTransition classNames="dialog" timeout={300}>
-          <div className="dialog--overlay">
-            <div className="dialog">
-              <div className="panel">
-                <div className="container">
-                  {children}
-                </div>
-                <button onClick={onClose}>OK</button>
-              </div>
-            </div>
+  <>
+    {isOpen && (
+      <div className="dialog--overlay">
+        <div className="dialog">
+          <div className="panel">
+            {children}
+            <hr/>
+            <button onClick={onClose}>Salir</button>
           </div>
-        </CSSTransition>
-      )}
-    </TransitionGroup>
+        </div>
+      </div>
+    )}
+  </>
   );
 };

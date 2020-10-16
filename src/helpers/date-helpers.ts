@@ -6,6 +6,6 @@ export const dateToLocaleString = (date: Date): string => {
 
 };
 
-export const dateToIsoString = (date: Date) => {
-  return date.toISOString().substring(0, 10);
+export const dateToIsoString = (date?: Date) => {
+  return date != null ? date.toISOString().substring(0, 10) : '';
 };

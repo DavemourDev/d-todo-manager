@@ -6,8 +6,10 @@ import { ACTIONS } from '../../config/todo-actions'
 import { Todo } from '../../interfaces/Todo';
 import { TodoContext } from '../../App';
 import { Action } from '../../interfaces/Action';
-import { ToolbarContainer } from '../layout/toolbar/ToolbarContainer';
+import { TodoActionsMenu } from '../layout/toolbar/TodoActionsMenu';
 import { getAveragePriority, getNumberOfCompletedTodos } from '../../helpers/data-summary';
+import { Dialog } from '../content/Dialog';
+import { TodoFileImport } from '../import/TodoFileImport';
 
 const NEW_TASK_INPUT_SIZE = 60;
 
@@ -18,11 +20,12 @@ type TodoManagerProps = {
 const TodoManager = () => {
 
     const [name, setName] = useState('');
+    const [ fileModalActive, setFileModalActive] = useState(false);
 
     const context = useContext(TodoContext);
     const data: Todo[] = context.todos;
     const dispatch: React.Dispatch<Action> = context.dispatch;
-    const filename = context.filename;
+    const filename = context.todoListKey;
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
@@ -30,12 +33,19 @@ const TodoManager = () => {
         setName('');
     };
 
+    const handleImportTodosFromExternalSource = (data: Todo[]): void => {
+        const payload = { data };
+        dispatch({ type: ACTIONS.IMPORT_TODOS, payload });
+        setFileModalActive(false);
+    }
+
+
     return (
         <div className="todo-list">
             <div className="panel">
                 <h2 className="align-center">Tareas: {filename}</h2>
             </div>
-            <ToolbarContainer/>
+            <TodoActionsMenu onOpenFileModal={ () => setFileModalActive(true) }/>
             <table>
                 <thead>
                     <tr>
@@ -74,6 +84,18 @@ const TodoManager = () => {
                     </div>
                 </form>
             </div>
+
+            <Dialog
+                isOpen={fileModalActive}
+                onClose={ () => setFileModalActive(false) }
+            >
+                <h2>Importar tareas desde un fichero externo</h2>
+                <p>Selecciona el tipo de fichero. Ten en cuenta que las tareas que haya actualmente en la lista serán reemplazadas.</p>
+                <TodoFileImport
+                    onSelectFile={ handleImportTodosFromExternalSource }
+                    onLoadDataError={ alert }
+                />
+            </Dialog>
 
         </div>
     )
