@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { Reducer, ReducerAction } from 'react';
+import React, { Reducer, ReducerAction, useContext } from 'react';
 import { ACTIONS } from '../../config/todo-actions';
+import { TodoContext } from '../../context/TodoContext';
+import { DICTIONARY_MAPPING } from '../../helpers/dictionary';
 import { Action } from '../../interfaces/Action';
 import { Todo } from '../../interfaces/Todo';
 import { Counter } from '../selectors/Counter';
@@ -17,6 +19,9 @@ const MAX_PRIORITY = 5;
 
 const TodoRow = ({ todo, dispatch }: TodoRowProps) => {
     
+    const context = useContext(TodoContext)
+    const dictionary = DICTIONARY_MAPPING(context.settings.language);
+
     const handleToggleTodo = (): void => {
         dispatch({ 
             type: ACTIONS.TOGGLE_TODO,
@@ -58,7 +63,11 @@ const TodoRow = ({ todo, dispatch }: TodoRowProps) => {
             <td>
                 <div className="flex row center">
                     <div className="toolbar-item-container">
-                        <button className="toolbar-element icon" onClick={ handleToggleTodo } title="Cambiar estado">
+                        <button
+                            className="toolbar-element icon"
+                            onClick={handleToggleTodo}
+                            title={dictionary.toggleCompletionState}
+                        >
                             <FontAwesomeIcon icon={todo.completed ? "check-square": "square" }/>
                         </button>
                     </div>
@@ -67,7 +76,11 @@ const TodoRow = ({ todo, dispatch }: TodoRowProps) => {
             <td>
                 <div className="flex row center">
                     <div className="toolbar-item-container">
-                        <button className="toolbar-element icon" title="Borrar tarea" onClick={handleDelete}>
+                        <button
+                            className="toolbar-element icon"
+                            title={dictionary.deleteTodo}
+                            onClick={handleDelete}
+                        >
                             <FontAwesomeIcon icon="trash-alt"/>
                         </button>
                     </div>

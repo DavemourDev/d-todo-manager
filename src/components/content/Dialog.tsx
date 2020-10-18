@@ -1,4 +1,7 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useContext } from 'react';
+import { TodoContext } from '../../context/TodoContext';
+import { DICTIONARY_MAPPING } from '../../helpers/dictionary';
+import { Settings } from '../../interfaces/Settings';
 
 type DialogProps = {
   isOpen: boolean;
@@ -6,6 +9,10 @@ type DialogProps = {
   children: ReactNode | Array<ReactNode>;
 };
 export const Dialog = ({ isOpen, onClose, children }: DialogProps) => {
+
+  const context = useContext(TodoContext);
+  const settings: Settings = context.settings;
+  const dictionary = DICTIONARY_MAPPING(settings.language);
 
   return (
   <>
@@ -15,7 +22,7 @@ export const Dialog = ({ isOpen, onClose, children }: DialogProps) => {
           <div className="panel">
             {children}
             <hr/>
-            <button onClick={onClose}>Salir</button>
+            <button onClick={onClose}>{ dictionary.exit }</button>
           </div>
         </div>
       </div>

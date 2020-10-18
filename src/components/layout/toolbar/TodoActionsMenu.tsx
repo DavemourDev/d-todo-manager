@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { useState } from "react";
-import { TodoContext } from '../../../App';
 import { ACTIONS } from '../../../config/todo-actions';
+import { TodoContext } from '../../../context/TodoContext';
+import { DICTIONARY_MAPPING } from '../../../helpers/dictionary';
 import { Action } from '../../../interfaces/Action';
 import { Formats, TodoFileExport } from '../../export/TodoFileExport';
 import { Toolbar } from './Toolbar';
@@ -18,8 +19,8 @@ export const TodoActionsMenu = ({ onOpenFileModal }: ToolbarContainerProps) => {
     const dispatch: React.Dispatch<Action> = context.dispatch;
     const filename = context.todoListKey;
     const data = context.todos;
-
     const [active, setActive] = useState(1);
+    const dictionary = DICTIONARY_MAPPING(context.settings.language)
 
     const sortAlphaAsc = () => {
         dispatch({ type: ACTIONS.SORT_ALPHA_ASC, payload: {} });
@@ -72,79 +73,79 @@ export const TodoActionsMenu = ({ onOpenFileModal }: ToolbarContainerProps) => {
     return (
         <div className="toolbar-container">
             <div className="panel flex row justify-start wrap">
-                <Toolbar label="Orden" collapsed={active !== 1} clickLabelHandler={() => { setActive(1) }}>
+                <Toolbar label={ dictionary.mainMenuSortLabel} collapsed={active !== 1} clickLabelHandler={() => { setActive(1) }}>
                     <ToolbarElement
-                        title="Ordenar tareas alfabéticamente (ascendente)"
+                        title={`${ dictionary.alphaSortTodos } (${dictionary.asc})`}
                         handler={sortAlphaAsc}
                         icon="sort-alpha-up-alt"
                     />
                     <ToolbarElement
-                        title="Ordenar tareas alfabéticamente (descendente)"
+                        title={`${ dictionary.alphaSortTodos } (${dictionary.desc})`}
                         handler={sortAlphaDesc}
                         icon="sort-alpha-down-alt"
                     />
                     <ToolbarElement
-                        title="Ordenar tareas por prioridad (ascendente)"
+                        title={`${ dictionary.prioritySortTodos} (${dictionary.asc})`}
                         handler={sortPriorityAsc}
                         icon="sort-numeric-up-alt"
                     />
                     <ToolbarElement
-                        title="Ordenar tareas por prioridad (descendente)"
+                        title={`${ dictionary.prioritySortTodos} (${dictionary.desc})`}
                         handler={sortPriorityDesc}
                         icon="sort-numeric-down-alt"
                     />
                     <ToolbarElement
-                        title="Mostrar completadas primero"
+                        title={`${ dictionary.showCompletedFirst}`}
                         handler={sortCompletedFirst}
                         icon="check-circle"
                     />
                     <ToolbarElement
-                        title="Mostrar pendientes primero"
+                        title={`${ dictionary.showPendingFirst}`}
                         handler={sortPendingFirst}
                         icon="circle"
                     />
                 </Toolbar>
                 
-                <Toolbar label="Estado" collapsed={active !== 2} clickLabelHandler={() => { setActive(2) }} >
+                <Toolbar label={ dictionary.mainMenuCompletionStateLabel} collapsed={active !== 2} clickLabelHandler={() => { setActive(2) }} >
                     <ToolbarElement
-                        title="Marcar todas como completadas"
+                        title={ dictionary.markAllTodosAsCompleted}
                         handler={markAllAsCompleted}
                         icon="calendar-check"
                     />
                     <ToolbarElement
-                        title="Marcar todas como pendientes"
+                        title={ dictionary.markAllTodosAsPending}
                         handler={markAllAsPending}
                         icon="calendar"
                     />
                     <ToolbarElement
-                        title="Intercambiar completadas con pendientes"
+                        title={ dictionary.invertCompletionState }
                         handler={toggleAll}
                         icon="exchange-alt"
                     />
                 </Toolbar>
                 
-                <Toolbar label="Borrar" collapsed={active !== 3} clickLabelHandler={() => { setActive(3) }}>
+                <Toolbar label={ dictionary.mainMenuDeletionLabel} collapsed={active !== 3} clickLabelHandler={() => { setActive(3) }}>
                     <ToolbarElement
-                        title="Eliminar tareas completadas"
+                        title={ dictionary.deleteAllCompletedTodos}
                         handler={deleteAllCompleted}
                         icon="calendar-check"
                     />
                     <ToolbarElement
-                        title="Eliminar tareas pendientes"
+                        title={ dictionary.deleteAllPendingTodos}
                         handler={deleteAllPending}
                         icon="calendar"
                     />
                 </Toolbar>
                 
-                <Toolbar label="Exportar" collapsed={active !== 4} clickLabelHandler={() => { setActive(4) }}>
+                <Toolbar label={ dictionary.mainMenuExportLabel} collapsed={active !== 4} clickLabelHandler={() => { setActive(4) }}>
                     <TodoFileExport title={filename} data={data} format={Formats.CSV} />
                     <TodoFileExport title={filename} data={data} format={Formats.JSON} />
                     <TodoFileExport title={filename} data={data} format={Formats.TEXT} />
                 </Toolbar>
                 
-                <Toolbar label="Importar" collapsed={active !== 5} clickLabelHandler={() => { setActive(5) }}>
+                <Toolbar label={ dictionary.mainMenuImportLabel} collapsed={active !== 5} clickLabelHandler={() => { setActive(5) }}>
                     <ToolbarElement
-                        title="Importar tareas desde fichero"
+                        title={ dictionary.importTodosFromFile}
                         handler={openFileImportModal}
                         icon="file"
                     />

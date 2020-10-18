@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TodoContext } from '../../context/TodoContext';
+import { DICTIONARY_MAPPING } from '../../helpers/dictionary';
 import { Todo } from "../../interfaces/Todo";
 import { TodoFileExportCsv } from './formats/ExportCsv';
 import { TodoFileExportJson } from './formats/ExportJson';
@@ -24,6 +26,11 @@ export type TodoFileExportInterfaceProps = {
  */
 const TodoFileExport = ({ title, data, format }: TodoFileExportProps) => {
   
+  const context = useContext(TodoContext);
+  const settings = context.settings;
+  const dictionary = DICTIONARY_MAPPING(settings.language);
+
+
   if (format === Formats.CSV) {
     return <TodoFileExportCsv title={title} data={data} />;
   } else if (format === Formats.JSON) {
@@ -31,7 +38,7 @@ const TodoFileExport = ({ title, data, format }: TodoFileExportProps) => {
   } else if (format === Formats.TEXT) {
     return <TodoFileExportTxt title={title} data={data}/>;
   } else {  
-    return <>Invalid format</>;
+    return <>{ dictionary.invalidFormat}</>;
   }
 
 };

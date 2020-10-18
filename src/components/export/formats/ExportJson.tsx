@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TodoContext } from '../../../context/TodoContext';
+import { DICTIONARY_MAPPING } from '../../../helpers/dictionary';
 import { TodoFileExportInterfaceProps } from '../TodoFileExport';
 
 const generateDownloadLink = (title: string, data: any[]) => {
@@ -8,10 +10,15 @@ const generateDownloadLink = (title: string, data: any[]) => {
 };
 
 export const TodoFileExportJson = ({ data, title }: TodoFileExportInterfaceProps) => {
+  
+  const context = useContext(TodoContext);
+  const settings = context.settings;
+  const dictionary = DICTIONARY_MAPPING(settings.language);
+  
   return (
     <button
       className="toolbar-element"
-      title="Descargar tareas como JSON">
+      title={`${dictionary.downloadTodosAs} JSON`}>
       <a
         href={ generateDownloadLink(title, data)}
         download={`${title}.json`}

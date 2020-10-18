@@ -1,19 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { Toolbar, ToolbarElement } from './Toolbar';
 import { Action } from '../../../interfaces/Action';
-import { TodoContext } from '../../../App';
+
 import { dateToIsoString } from '../../../helpers/date-helpers';
 import { ACTIONS } from '../../../config/todo-actions';
 import { CustomTodoListDialog } from '../../dialogs/CustomTodoListDialog';
 import { DateTodoListDialog } from '../../dialogs/DateTodoListDialog';
+import { TodoContext } from '../../../context/TodoContext';
+import { DICTIONARY_MAPPING } from '../../../helpers/dictionary';
 
-type MainMenuProps = {
-  onSetTodoListKey: (key: string) => void,
-}
-
-export const MainMenu = ({
-  onSetTodoListKey
-}: MainMenuProps) => {
+export const MainMenu = () => {
 
   const [dateSelectorActive, setDateSelectorActive] = useState(false);
   const [todoListSelectorActive, setTodoListSelectorActive] = useState(false);
@@ -21,12 +17,15 @@ export const MainMenu = ({
   const context = useContext(TodoContext);
 
   const dispatch: React.Dispatch<Action> = context.dispatch;
+  const setKey = context.setKey;
+
+  const settings = context.settings;
+  const dictionary = DICTIONARY_MAPPING(settings.language);
 
   const selectTodoListHandler = (todoList: string) => {
     const payload = { key: todoList };
     dispatch({ type: ACTIONS.GET_TODO_LIST_FROM_CUSTOM_KEY, payload });
-    onSetTodoListKey(todoList);
-    
+    setKey(todoList);
   }
 
   //---
@@ -35,7 +34,7 @@ export const MainMenu = ({
     const key = dateToIsoString(date)
     const payload = { key };
     dispatch({ type: ACTIONS.GET_TODO_LIST_FROM_KEY_DATE, payload });
-    onSetTodoListKey(key);
+    setKey(key);
     setDateSelectorActive(false);
 
   }
@@ -46,13 +45,13 @@ export const MainMenu = ({
     <>
       <div className="toolbar-container">
         <div className="panel flex row justify-start wrap">
-          <Toolbar label="Tareas" clickLabelHandler={() => { }}>
+          <Toolbar label={ dictionary.todos } clickLabelHandler={() => { }}>
             <ToolbarElement
-              title="Cargar tareas del día"
+              title={ dictionary.loadDailyTodos}
               handler={() => { setDateSelectorActive(true); }}
               icon="calendar" />
             <ToolbarElement
-              title="Listas de tareas personalizadas"
+              title={ dictionary.customTodoLists }
               handler={() => { setTodoListSelectorActive(true); }}
               icon="list" />
           </Toolbar>          

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TodoContext } from '../../context/TodoContext';
+import { DICTIONARY_MAPPING } from '../../helpers/dictionary';
 import { Dialog } from '../content/Dialog';
 import { DateSelector } from '../selectors/DateSelector';
 
@@ -10,6 +12,9 @@ type DateTodoListDialogProps = {
 
 export const DateTodoListDialog = ({ active, onSelectDate, onClose }: DateTodoListDialogProps) => {
 
+  const context = useContext(TodoContext)
+  const dictionary = DICTIONARY_MAPPING(context.settings.language);
+
   const selectDateHandler = (date: Date) => {
     onSelectDate(date);
     onClose();
@@ -17,8 +22,8 @@ export const DateTodoListDialog = ({ active, onSelectDate, onClose }: DateTodoLi
 
   return (
     <Dialog isOpen={ active } onClose={ onClose }>
-      <h2>Abrir tareas para fecha</h2>
-      <DateSelector onChange={ selectDateHandler } />
+      <h2>{ dictionary.openTodosForDateTitle }</h2>
+      <DateSelector label={dictionary.date } onChange={ selectDateHandler } />
     </Dialog>
   );
 }
