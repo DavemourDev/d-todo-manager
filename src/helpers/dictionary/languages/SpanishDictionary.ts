@@ -1,57 +1,108 @@
-import { IDictionary } from "../IDictionary";
+import { Descriptions, Greetings, IDictionary, Issues, Labels, Languages, Menu, Terms, Tooltips } from "../IDictionary";
 
-export const SPANISH: IDictionary = {
-  openTodosForDateTitle : "Abrir tareas diarias",
-  id : "ID",
-  invalidFormat : "Formato no válido",
-  noRecognisedFile : "Fichero no reconocido",
-  cannotReadFileContents : "No se han podido leer los datos del fichero",
-  file : "Fichero",
-  importTodosFrom : "Importar tareas de ",
-  customTodoLists : "Listas de tareas personalizadas",
-  loadDailyTodos : "Cargar tareas diarias",
-  invertCompletionState : "Intercambiar completadas con pendientes",
-  date : "Fecha",
-  settings : "Configuración",
-  exit : "Salir",
-  mainMenuSortLabel : "Orden",
-  mainMenuCompletionStateLabel : "Estado",
-  mainMenuDeletionLabel : "Borrado",
-  mainMenuExportLabel : "Exportar",
-  mainMenuImportLabel : "Importar",
-  alphaSortTodos : "Ordenar alfabéticamente",
-  asc : "ascendente",
-  desc : "descendente",
-  prioritySortTodos :"Ordenar por prioridad",
-  showCompletedFirst : "Mostrar completadas primero",
-  showPendingFirst :"Mostrar pendientes primero",
-  markAllTodosAsCompleted :"Marcar todas como completadas",
-  markAllTodosAsPending : "Marcar todas como pendientes",
-  deleteAllCompletedTodos : "Borrar tareas completadas",
-  deleteAllPendingTodos : "Borrar tareas pendientes",
-  downloadTodosAs :"Descargar tareas como",
-  importTodosFromFile : "Importar tareas desde fichero",
-  increase : "Incrementar",
-  decrease : "Disminuir",
-  deleteTodo : "Borrar tarea",
-  toggleCompletionState : "Cambiar estado",
-  todoList : "Lista de tareas",
-  goodMorning : "Buenos días",
-  goodEvening : "Buenas tardes",
-  goodNight : "Buenas noches",
-  todo : "Tarea",
-  priority : "Prioridad",
-  completed : "Completada?",
-  actions : "Acciones",
-  averagePriority : "Prioridad media",
-  noTodosInList : "No hay tareas en la lista",
-  create : "Crear",
-  addTodo : "Añadir tarea",
-  importTodosFromExternalFileTitle : "Importar tareas desde fichero externo",
-  importTodosFromExternalFileDescription : "Selecciona el tipo de fichero. Ten en cuenta que las tareas que haya actualmente en la lista serán reemplazadas por las tareas del fichero cargado.",
-  customTodoListTitle : "Listas de tareas personalizadas",
-  todoListSelectorLabel : "Selecciona una lista de tareas",
-  createCustomTodoListLabel : "Crear nueva lista de tareas",
-  loadTodoListLabel : "Cargar lista de tareas",
-  todos: "Tareas"
+const greetings: Greetings = {
+  goodMorning: "¡Buenos días!",
+  goodAfternoon: "¡Buenas tardes!",
+  goodEvening: "¡Buenas noches!",
+  goodNight: "¡Buenas noches!"
+};
+
+const labels: Labels = {
+  addTodo: "Añadir tarea",
+  loadTodoList: "Cargar lista de tareas",
+  createNewTodoList: "Crear lista de tareas",
+  interfaceLanguage: "Idioma de la interfaz"
+};
+
+const issues: Issues = {
+  invalidFormat: "Formato no válido",
+  cannotReadFileContents: "No se han podido leer los contenidos del fichero",
+  noRecognisedFile: "Fichero no reconocido",
+  noTodosOnList: "No hay tareas en la lista"
+}; 
+
+const terms: Terms = {
+  actions: "Acciones",
+  all: "Todo",
+  ascendent: 'ascendente',
+  averagePriority: 'prioridad media',
+  completed: 'completadas',
+  completionState: 'completada?',
+  create: 'crear',
+  date: 'fecha',
+  delete: 'borrar',
+  deletion: 'borrado',
+  descendent: 'descendente',
+  download: 'descargar',
+  exit: 'salir',
+  export: 'exportar',
+  file: 'fichero',
+  id: 'ID',
+  import: 'importar',
+  pending: 'pendientes',
+  priority: 'prioridad',
+  settings: 'configuración',
+  sort: 'orden',
+  show: 'mostrar',
+  toSort: 'ordenar',
+  todo: 'tarea',
+  todoList: 'lista de tareas',
+  todos: 'tareas',
+  toMark: 'marcar',
+  toggle: 'invertir',
+  language: 'idioma'
+};
+
+
+const menu: Menu = {
+  customTodoLists: "Listas de tareas personalizadas",
+  dailyTodoLists: "Listas de tareas diarias",
+  configureSettings: "Configuración de la aplicación"
 }
+
+const tooltips: Tooltips = {
+  alphaSort: `${terms.toSort} alfabéticamente`,
+  prioritySort: `${terms.toSort} por prioridad`,
+  showCompletedFirst: `${terms.show} ${terms.completed} primero`,
+  showPendingFirst: `${terms.show} ${terms.pending} primero`,
+  markAllAs: `${terms.toMark} todas como`,
+
+  downloadTodosAs: `${terms.download} ${terms.todos} como`,
+  selectTodoList: `Selecciona una ${terms.todoList}`,
+  importTodosFrom: `${terms.import} ${terms.todos} desde `,
+  importTodosFromFile: `${terms.import} ${terms.todos} desde ${terms.file}`,
+  importDailyTodos: `${terms.import} ${terms.todos} diarias`,
+  toggleCompletionState: `${terms.toggle} estado de compleción`,
+  markAllAsCompleted: `${terms.toMark} ${terms.all} como ${ terms.completed }`,
+  markAllAsPending: `${terms.toMark} ${terms.all} como ${terms.pending}`,
+  deleteCompletedTodos: `${terms.delete} ${terms.completed}`,
+  deletePendingTodos: `${terms.delete} ${terms.pending}`,
+  increasePriority: `Aumentar ${terms.priority}`,
+  decreasePriority: `Reducir ${terms.priority}`,
+  deleteTodo: `${terms.delete} ${terms.todo}`
+}
+
+const descriptions: Descriptions = {
+  importTodosFromFile: "Seleccione el fichero del cual desea cargar tareas. Tener en cuenta que las tareas de la lista actual serán reemplazadas por las tareas cargadas del fichero.",
+  languageSettings: "NOTA: La configuración de idioma se aplica principalmente a la interfaz gráfica de la aplicación, y no modificará ni traducirá en absoluto la información de tus tareas",
+  dailyTodoLists: "Escoge una fecha para acceder a sus tareas.",
+};
+
+const languages: Languages = {
+  es: 'Castellano',
+  ca: 'Catalán',
+  en: 'Inglés',
+} 
+
+export class SpanishDictionary implements IDictionary {
+  greetings: Greetings = greetings;
+  labels: Labels = labels;
+  issues: Issues = issues;
+  terms: Terms = terms;
+  menu: Menu = menu;
+  tooltips: Tooltips = tooltips;
+  descriptions: Descriptions = descriptions;
+  languages: Languages = languages;
+}
+
+export const SPANISH = new SpanishDictionary();

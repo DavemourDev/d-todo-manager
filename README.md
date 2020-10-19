@@ -1,44 +1,26 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# D-Todo-Manager
 
-## Available Scripts
+## ¿Qué es?
 
-In the project directory, you can run:
+D-Todo-Manager es una aplicación de gestión de tareas que permite una gestión simplificada de tareas y proyectos cotidianos desde una cómoda interfaz en el navegador.
 
-### `npm start`
+## ¿Cómo está desarrollado?
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+D-Todo-Manager está desarrollada con **React** y **Typescript**, con la intención de ser un proyecto potencialmente escalable y fácil de ampliar y modificar.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## ¿Cómo se almacenan las tareas?
 
-### `npm test`
+Las tareas se almacenan en el almacenamiento local del navegador usando dos tipos de listas: diarias y personalizadas.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Las listas diarias están asignadas a los días del calendario.
+- Las listas personalizadas son independientes de los días de calendario, y cada usuario define tantas como desee y decide cómo desea utilizarlas.
+- Las tareas se guardan automáticamente después de cada operación.
 
-### `npm run build`
+## ¿Qué características ofrece?
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Creación y edición de tareas de forma rápida y robusta desde la interfaz de la aplicación.
+- Ordenación de tareas usando distintos criterios.
+- Opciones de importación y exportación de información con archivos:
+  - Las tareas de una lista se pueden exportar en formatos `json`, `txt` y `csv`.
+  - La importación solamente es soportada para el formato `json`. 
+- **Interfaz multiidioma**: Por defecto utilizará el idioma de tu navegador, pero puedes escoger entre catalán, castellano e inglés.

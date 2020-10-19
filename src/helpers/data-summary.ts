@@ -32,3 +32,4 @@ export const getAveragePriority = (data: Todo[]): number => {
 export const getPrioritySum = (data: Todo[]): number => {
   return data.reduce((sum, { priority }) => sum + priority, 0);
 }
+

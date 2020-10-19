@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { capitalize } from '../../../helpers/string-helpers';
 import { TodoFileExport } from '../../export/TodoFileExport';
 import { ToolbarElement } from './ToolbarElement';
 
@@ -17,8 +18,8 @@ const Toolbar = ({ children, label, collapsed, clickLabelHandler }: ToolbarProps
 
   return (
     <div className="toolbar">
-      <div className="label" style={{ cursor: "pointer" }} onClick={ clickLabelHandler }>
-        {label}
+      <div className="label pointer" onClick={ clickLabelHandler }>
+        {capitalize(label)}
       </div>
     
       <div className={`toolbar-item-container ${collapsed && 'collapsed'}`}>

@@ -1,6 +1,7 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { capitalize } from '../../../helpers/string-helpers';
 
 
 type ToolbarElementProps = {
@@ -15,7 +16,7 @@ export const ToolbarElement = ({ handler, icon, title, disabled }: ToolbarElemen
   <button
     className={`toolbar-element ${icon && "icon"}`}
     onClick={() => handler()}
-    title={title}
+    title={ capitalize(title) }
     disabled={disabled}
   >
     {icon ? <FontAwesomeIcon icon={icon} /> : <>{title}</>}

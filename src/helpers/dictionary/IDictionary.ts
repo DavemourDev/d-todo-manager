@@ -1,55 +1,103 @@
-export interface IDictionary { 
-  readonly loadTodoListLabel: string;
-  readonly customTodoListTitle: string;
-  readonly todoListSelectorLabel: string;
-  readonly createCustomTodoListLabel: string;
-  readonly todo: string;
-  readonly priority: string;
-  readonly completed: string;
-  readonly actions: string;
-  readonly averagePriority: string;
-  readonly noTodosInList: string;
-  readonly create: string;
-  readonly addTodo: string;
-  readonly importTodosFromExternalFileTitle: string;
-  readonly importTodosFromExternalFileDescription: string;
-  readonly mainMenuSortLabel: string;
-  readonly mainMenuCompletionStateLabel: string;
-  readonly mainMenuDeletionLabel: string;
-  readonly mainMenuExportLabel: string;
-  readonly mainMenuImportLabel: string;
-  readonly alphaSortTodos: string;
-  readonly asc: string;
-  readonly desc: string;
-  readonly prioritySortTodos: string;
-  readonly showCompletedFirst: string;
-  readonly showPendingFirst: string;
-  readonly markAllTodosAsCompleted: string;
-  readonly markAllTodosAsPending: string;
-  readonly deleteAllCompletedTodos: string;
-  readonly deleteAllPendingTodos: string;
-  readonly downloadTodosAs: string;
-  readonly importTodosFromFile: string;
-  readonly increase: string;
-  readonly decrease: string;
-  readonly deleteTodo: string;
-  readonly toggleCompletionState: string;
-  readonly todoList: string;
-  readonly goodMorning: string;
-  readonly goodEvening: string;
-  readonly goodNight: string;
-  readonly exit: string;
-  readonly openTodosForDateTitle: string; // Abrir tareas para fecha
-  readonly id: string; // ID
-  readonly invalidFormat: string;
-  readonly noRecognisedFile: string;
-  readonly cannotReadFileContents: string;
-  readonly file: string;
-  readonly importTodosFrom: string;
-  readonly customTodoLists: string;
-  readonly loadDailyTodos: string;
-  readonly invertCompletionState: string;
-  readonly date: string;
-  readonly settings: string;
-  readonly todos: string;
+
+export type Greetings = {
+  goodMorning: string;
+  goodAfternoon: string;
+  goodEvening: string;
+  goodNight: string;
+}
+
+export type Terms = {
+  actions: string;
+  all: string;
+  ascendent: string;
+  averagePriority: string;
+  completed: string;
+  completionState: string;
+  create: string;
+  date: string;
+  delete: string;
+  deletion: string;
+  descendent: string;
+  download: string;
+  exit: string;
+  export: string;
+  file: string;
+  id: string;
+  import: string;
+  pending: string;
+  priority: string;
+  settings: string;
+  sort: string;
+  todo: string;
+  todoList: string;
+  todos: string;
+  toggle: string;
+  toMark: string;
+  toSort: string;
+  show: string;
+  language: string;
+}
+
+export type Menu = {
+  customTodoLists: string;
+  dailyTodoLists: string;
+  configureSettings: string;
+};
+
+export type Tooltips = {
+  alphaSort: string;
+  prioritySort: string;
+  showCompletedFirst: string;
+  showPendingFirst: string;
+  markAllAs: string;
+  selectTodoList: string;
+  downloadTodosAs: string;
+  importTodosFrom: string;
+  importTodosFromFile: string;
+  importDailyTodos: string;
+  toggleCompletionState: string;
+  markAllAsCompleted: string;
+  markAllAsPending: string;
+  deleteCompletedTodos: string;
+  deletePendingTodos: string;
+  increasePriority: string;
+  decreasePriority: string;
+  deleteTodo: string;
+}
+
+export type Descriptions = {
+  importTodosFromFile: string,
+  languageSettings: string,
+  dailyTodoLists: string
+};
+
+export type Labels = {
+  addTodo: string;
+  loadTodoList: string;
+  createNewTodoList: string;
+  interfaceLanguage: string;
+}
+
+export type Issues = {
+  invalidFormat: string;
+  noRecognisedFile: string;
+  cannotReadFileContents: string;
+  noTodosOnList: string;
+};
+
+export type Languages = {
+  es: string;
+  ca: string;
+  en: string;
+}
+
+export interface IDictionary {
+  greetings: Greetings;
+  labels: Labels;
+  issues: Issues;
+  terms: Terms;
+  menu: Menu;
+  tooltips: Tooltips;
+  descriptions: Descriptions,
+  languages: Languages
 }

@@ -38,7 +38,7 @@ const TodoFileExport = ({ title, data, format }: TodoFileExportProps) => {
   } else if (format === Formats.TEXT) {
     return <TodoFileExportTxt title={title} data={data}/>;
   } else {  
-    return <>{ dictionary.invalidFormat}</>;
+    return <>{ dictionary.issues.invalidFormat}</>;
   }
 
 };

@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext } from 'react';
 import { TodoContext } from '../../context/TodoContext';
-import { DICTIONARY_MAPPING } from '../../helpers/dictionary';
-import { Settings } from '../../interfaces/Settings';
+import { IDictionary } from '../../helpers/dictionary/IDictionary';
+import { capitalize } from '../../helpers/string-helpers';
 
 type DialogProps = {
   isOpen: boolean;
@@ -11,8 +11,7 @@ type DialogProps = {
 export const Dialog = ({ isOpen, onClose, children }: DialogProps) => {
 
   const context = useContext(TodoContext);
-  const settings: Settings = context.settings;
-  const dictionary = DICTIONARY_MAPPING(settings.language);
+  const dictionary: IDictionary = context.dictionary;
 
   return (
   <>
@@ -22,7 +21,7 @@ export const Dialog = ({ isOpen, onClose, children }: DialogProps) => {
           <div className="panel">
             {children}
             <hr/>
-            <button onClick={onClose}>{ dictionary.exit }</button>
+            <button onClick={onClose}>{ capitalize(dictionary.terms.exit) }</button>
           </div>
         </div>
       </div>

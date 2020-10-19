@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { TodoContext } from '../../../context/TodoContext';
-import { DICTIONARY_MAPPING } from '../../../helpers/dictionary';
+import { getTodoFileHeaders } from '../../../helpers/file-utils';
+import { capitalize } from '../../../helpers/string-helpers';
 import { Todo } from '../../../interfaces/Todo';
 import { TodoFileExportInterfaceProps } from '../TodoFileExport';
 
@@ -8,31 +9,11 @@ import { TodoFileExportInterfaceProps } from '../TodoFileExport';
 export const TodoFileExportTxt = ({ data, title }: TodoFileExportInterfaceProps) => {
   
   const context = useContext(TodoContext);
-  const settings = context.settings;
-  const dictionary = DICTIONARY_MAPPING(settings.language);
-
-  const TODO_FILE_HEADERS = [
-    {
-      label: dictionary.id,
-      key: 'id'
-    },
-    {
-      label: dictionary.todo,
-      key: "name"
-    },
-    {
-      label: dictionary.completed,
-      key: "completed",
-    },
-    {
-      label: dictionary.priority,
-      key: "priority"
-    }
-  ];
+  const dictionary = context.dictionary;
   
   const dataToTxt = (data: Todo[]) => {
 
-    let fileContent = TODO_FILE_HEADERS.map(header => header.label).join('\t');
+    let fileContent = getTodoFileHeaders(dictionary).map(header => header.label).join('\t');
 
     data.forEach((todo: Todo) => {
       fileContent = `${ fileContent }\n${ Object.values(todo).join('\t') }`;
@@ -48,7 +29,7 @@ export const TodoFileExportTxt = ({ data, title }: TodoFileExportInterfaceProps)
   return (
     <button
       className="toolbar-element"
-      title={`${dictionary.downloadTodosAs} TXT`}>
+      title={`${capitalize(dictionary.tooltips.downloadTodosAs)} TXT`}>
       <a
         href={ generateDownloadLink(title, data)}
         download={`${title}.txt`}

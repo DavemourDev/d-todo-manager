@@ -9,15 +9,11 @@ import { TodoActionsMenu } from '../layout/toolbar/TodoActionsMenu';
 import { getAveragePriority, getNumberOfCompletedTodos } from '../../helpers/data-summary';
 import { Dialog } from '../content/Dialog';
 import { TodoFileImport } from '../import/TodoFileImport';
-import { DICTIONARY_MAPPING } from '../../helpers/dictionary';
 import { IDictionary } from '../../helpers/dictionary/IDictionary';
 import { TodoContext } from '../../context/TodoContext';
+import { capitalize, sanitize } from '../../helpers/string-helpers';
 
-const NEW_TASK_INPUT_SIZE = 60;
-
-type TodoManagerProps = {
-
-};
+const NEW_TODO_INPUT_SIZE = 60;
 
 const TodoManager = () => {
 
@@ -28,12 +24,12 @@ const TodoManager = () => {
     const data: Todo[] = context.todos;
     const dispatch: React.Dispatch<Action> = context.dispatch;
     const filename = context.todoListKey;
-    const settings = context.settings;
-    const dictionary: IDictionary = DICTIONARY_MAPPING(settings.language);
+    const dictionary: IDictionary = context.dictionary;
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
-        dispatch({ type: ACTIONS.ADD_TODO, payload: { name: name } });
+        const sanitizedName = sanitize(name);
+        dispatch({ type: ACTIONS.ADD_TODO, payload: { name: sanitizedName } });
         setName('');
     };
 
@@ -47,24 +43,24 @@ const TodoManager = () => {
     return (
         <div className="todo-list">
             <div className="panel">
-                <h2 className="align-center">{ dictionary.todoList }: {filename}</h2>
+                <h2 className="align-center">{ capitalize(dictionary.terms.todoList) }: {filename}</h2>
             </div>
             <TodoActionsMenu onOpenFileModal={ () => setFileModalActive(true) }/>
             <table>
                 <thead>
                     <tr>
-                        <th>{ dictionary.todo }</th>
-                        <th>{ dictionary.priority }</th>
-                        <th>{ dictionary.completed }</th>
-                        <th>{ dictionary.actions }</th>
+                        <th>{ capitalize(dictionary.terms.todo) }</th>
+                        <th>{ capitalize(dictionary.terms.priority) }</th>
+                        <th>{ capitalize(dictionary.terms.completionState) }</th>
+                        <th>{ capitalize(dictionary.terms.actions) }</th>
                     </tr>
                 </thead>
                 <tfoot>
-                    <tr>
+                    <tr className="align-center">
                         <td></td>
-                        <td>{ dictionary.averagePriority }: { getAveragePriority(data).toFixed(3) }</td>
-                        <td className="align-center">{ getNumberOfCompletedTodos(data) }/{data.length}</td>
-                        <td className="align-center"></td>
+                        <td>{ capitalize(dictionary.terms.averagePriority) }: { getAveragePriority(data).toFixed(3) }</td>
+                        <td>{ getNumberOfCompletedTodos(data) }/{data.length}</td>
+                        <td></td>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -73,7 +69,7 @@ const TodoManager = () => {
                             data.map((todo) => (
                                 <TodoRow key={ todo.id } todo={todo} dispatch={ dispatch }/>
                             ))     
-                        ) : <tr><td colSpan={4} className="align-center">{dictionary.noTodosInList}</td></tr>
+                        ) : <tr><td colSpan={4} className="align-center">{dictionary.issues.noTodosOnList}</td></tr>
                     }
                 </tbody>
             </table>
@@ -81,15 +77,15 @@ const TodoManager = () => {
                 <form onSubmit={ handleSubmit }>
                     <div className="flex row start">
                         <div className="form-group">
-                            <label className="label">{ dictionary.create }</label>
+                            <label className="label">{ capitalize(dictionary.terms.create) }</label>
                             <input type="text"
                                 value={name}
-                                maxLength={NEW_TASK_INPUT_SIZE}
-                                size={NEW_TASK_INPUT_SIZE}
+                                maxLength={NEW_TODO_INPUT_SIZE}
+                                size={NEW_TODO_INPUT_SIZE}
                                 onChange={e => setName(e.target.value)}
                             />
-                            <button type="submit" disabled={!name}>
-                                {dictionary.addTodo}
+                            <button type="submit" disabled={!name.trim()}>
+                                {dictionary.labels.addTodo}
                             </button>
                         </div>    
                     </div>
@@ -100,8 +96,8 @@ const TodoManager = () => {
                 isOpen={fileModalActive}
                 onClose={ () => setFileModalActive(false) }
             >
-                <h2>{ dictionary.importTodosFromExternalFileTitle}</h2>
-                <p>{ dictionary.importTodosFromExternalFileDescription }</p>
+                <h2>{ dictionary.tooltips.importTodosFromFile}</h2>
+                <p>{ dictionary.descriptions.importTodosFromFile }</p>
                 <TodoFileImport
                     onSelectFile={ handleImportTodosFromExternalSource }
                     onLoadDataError={ alert }

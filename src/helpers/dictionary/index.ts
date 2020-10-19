@@ -3,7 +3,9 @@ import { CATALAN } from "./languages/CatalanDictionary";
 import { ENGLISH } from "./languages/EnglishDictionary";
 import { SPANISH } from "./languages/SpanishDictionary";
 
-export const DICTIONARY_MAPPING = (language: 'es' | 'ca' | 'en'): IDictionary => {
+export type Language = 'es' | 'ca' | 'en'; 
+
+export const DICTIONARY_MAPPING = (language: Language): IDictionary => {
   switch (language) {
     case 'es':
       return SPANISH;

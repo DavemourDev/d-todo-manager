@@ -1,33 +1,26 @@
 import React, { useContext, useState } from "react";
 import { TodoContext } from "../../context/TodoContext";
-import { DICTIONARY_MAPPING } from "../../helpers/dictionary";
-
+import { IDictionary } from "../../helpers/dictionary/IDictionary";
 
 const ZoneWidget = () => {
   
   const [date, setDate] = useState<Date>(new Date());
   
-  const context = useContext(TodoContext)
-  const dictionary = DICTIONARY_MAPPING(context.settings.language)
+  const context = useContext(TodoContext);
+  const dictionary: IDictionary = context.dictionary;
   
-  const GREETINGS = {
-    morning: dictionary.goodMorning,
-    noon: dictionary.goodEvening,
-    evening: dictionary.goodEvening,
-    night: dictionary.goodNight,
-  };
 
   const getGreeting = (date: Date) => {
     let h = date.getHours();
     let _greeting;
     if (h > 6 && h < 12) {
-      _greeting = GREETINGS.morning;
+      _greeting = dictionary.greetings.goodMorning;
     } else if (h >= 12 && h < 17) {
-      _greeting = GREETINGS.noon;
+      _greeting = dictionary.greetings.goodAfternoon;
     } else if (h >= 17 && h < 20) {
-      _greeting = GREETINGS.evening;
+      _greeting = dictionary.greetings.goodEvening;
     } else {
-      _greeting = GREETINGS.night;
+      _greeting = dictionary.greetings.goodNight;
     }
     return _greeting;
   }

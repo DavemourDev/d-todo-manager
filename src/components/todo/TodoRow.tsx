@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Reducer, ReducerAction, useContext } from 'react';
 import { ACTIONS } from '../../config/todo-actions';
 import { TodoContext } from '../../context/TodoContext';
-import { DICTIONARY_MAPPING } from '../../helpers/dictionary';
+import { IDictionary } from '../../helpers/dictionary/IDictionary';
+import { capitalize } from '../../helpers/string-helpers';
 import { Action } from '../../interfaces/Action';
 import { Todo } from '../../interfaces/Todo';
 import { Counter } from '../selectors/Counter';
@@ -20,7 +21,7 @@ const MAX_PRIORITY = 5;
 const TodoRow = ({ todo, dispatch }: TodoRowProps) => {
     
     const context = useContext(TodoContext)
-    const dictionary = DICTIONARY_MAPPING(context.settings.language);
+    const dictionary: IDictionary = context.dictionary;
 
     const handleToggleTodo = (): void => {
         dispatch({ 
@@ -55,9 +56,11 @@ const TodoRow = ({ todo, dispatch }: TodoRowProps) => {
             <td>{todo.name}</td>
             <td className="flex row center">
                 <Counter value={todo.priority}
-                    minValue={ MIN_PRIORITY}
-                    maxValue={ MAX_PRIORITY}
-                    onChange={ handlePriorityChange }    
+                    minValue={MIN_PRIORITY}
+                    maxValue={MAX_PRIORITY}
+                    onChange={handlePriorityChange}
+                    increaseLabel={ capitalize(dictionary.tooltips.increasePriority) }
+                    decreaseLabel={ capitalize(dictionary.tooltips.decreasePriority) }
                 />
             </td>
             <td>
@@ -66,7 +69,7 @@ const TodoRow = ({ todo, dispatch }: TodoRowProps) => {
                         <button
                             className="toolbar-element icon"
                             onClick={handleToggleTodo}
-                            title={dictionary.toggleCompletionState}
+                            title={capitalize(dictionary.tooltips.toggleCompletionState)}
                         >
                             <FontAwesomeIcon icon={todo.completed ? "check-square": "square" }/>
                         </button>
@@ -78,7 +81,7 @@ const TodoRow = ({ todo, dispatch }: TodoRowProps) => {
                     <div className="toolbar-item-container">
                         <button
                             className="toolbar-element icon"
-                            title={dictionary.deleteTodo}
+                            title={capitalize(dictionary.tooltips.deleteTodo) }
                             onClick={handleDelete}
                         >
                             <FontAwesomeIcon icon="trash-alt"/>

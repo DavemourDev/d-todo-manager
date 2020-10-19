@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import { useState } from "react";
 import { ACTIONS } from '../../../config/todo-actions';
 import { TodoContext } from '../../../context/TodoContext';
-import { DICTIONARY_MAPPING } from '../../../helpers/dictionary';
+import { IDictionary } from '../../../helpers/dictionary/IDictionary';
 import { Action } from '../../../interfaces/Action';
+import { Todo } from '../../../interfaces/Todo';
 import { Formats, TodoFileExport } from '../../export/TodoFileExport';
 import { Toolbar } from './Toolbar';
 import { ToolbarElement } from "./ToolbarElement";
@@ -18,9 +19,10 @@ export const TodoActionsMenu = ({ onOpenFileModal }: ToolbarContainerProps) => {
 
     const dispatch: React.Dispatch<Action> = context.dispatch;
     const filename = context.todoListKey;
-    const data = context.todos;
-    const [active, setActive] = useState(1);
-    const dictionary = DICTIONARY_MAPPING(context.settings.language)
+    const data: Todo[] = context.todos;
+    const dictionary: IDictionary = context.dictionary;
+
+    const [activeItem, setActiveItem] = useState(1);
 
     const sortAlphaAsc = () => {
         dispatch({ type: ACTIONS.SORT_ALPHA_ASC, payload: {} });
@@ -73,79 +75,79 @@ export const TodoActionsMenu = ({ onOpenFileModal }: ToolbarContainerProps) => {
     return (
         <div className="toolbar-container">
             <div className="panel flex row justify-start wrap">
-                <Toolbar label={ dictionary.mainMenuSortLabel} collapsed={active !== 1} clickLabelHandler={() => { setActive(1) }}>
+                <Toolbar label={ dictionary.terms.toSort} collapsed={activeItem !== 1} clickLabelHandler={() => { setActiveItem(1) }}>
                     <ToolbarElement
-                        title={`${ dictionary.alphaSortTodos } (${dictionary.asc})`}
+                        title={`${ dictionary.tooltips.alphaSort } (${dictionary.terms.ascendent})`}
                         handler={sortAlphaAsc}
                         icon="sort-alpha-up-alt"
                     />
                     <ToolbarElement
-                        title={`${ dictionary.alphaSortTodos } (${dictionary.desc})`}
+                        title={`${ dictionary.tooltips.alphaSort } (${dictionary.terms.descendent})`}
                         handler={sortAlphaDesc}
                         icon="sort-alpha-down-alt"
                     />
                     <ToolbarElement
-                        title={`${ dictionary.prioritySortTodos} (${dictionary.asc})`}
+                        title={`${ dictionary.tooltips.prioritySort} (${dictionary.terms.descendent})`}
                         handler={sortPriorityAsc}
                         icon="sort-numeric-up-alt"
                     />
                     <ToolbarElement
-                        title={`${ dictionary.prioritySortTodos} (${dictionary.desc})`}
+                        title={`${ dictionary.tooltips.prioritySort} (${dictionary.terms.descendent})`}
                         handler={sortPriorityDesc}
                         icon="sort-numeric-down-alt"
                     />
                     <ToolbarElement
-                        title={`${ dictionary.showCompletedFirst}`}
+                        title={`${ dictionary.tooltips.showCompletedFirst}`}
                         handler={sortCompletedFirst}
                         icon="check-circle"
                     />
                     <ToolbarElement
-                        title={`${ dictionary.showPendingFirst}`}
+                        title={`${ dictionary.tooltips.showPendingFirst}`}
                         handler={sortPendingFirst}
                         icon="circle"
                     />
                 </Toolbar>
                 
-                <Toolbar label={ dictionary.mainMenuCompletionStateLabel} collapsed={active !== 2} clickLabelHandler={() => { setActive(2) }} >
+                <Toolbar label={ dictionary.terms.completionState} collapsed={activeItem !== 2} clickLabelHandler={() => { setActiveItem(2) }} >
                     <ToolbarElement
-                        title={ dictionary.markAllTodosAsCompleted}
+                        title={ dictionary.tooltips.markAllAsCompleted }
                         handler={markAllAsCompleted}
                         icon="calendar-check"
                     />
                     <ToolbarElement
-                        title={ dictionary.markAllTodosAsPending}
+                        title={ dictionary.tooltips.markAllAsPending }
                         handler={markAllAsPending}
                         icon="calendar"
                     />
                     <ToolbarElement
-                        title={ dictionary.invertCompletionState }
+                        title={ dictionary.tooltips.toggleCompletionState }
                         handler={toggleAll}
                         icon="exchange-alt"
                     />
                 </Toolbar>
                 
-                <Toolbar label={ dictionary.mainMenuDeletionLabel} collapsed={active !== 3} clickLabelHandler={() => { setActive(3) }}>
+                <Toolbar label={ dictionary.terms.deletion } collapsed={activeItem !== 3} clickLabelHandler={() => { setActiveItem(3) }}>
                     <ToolbarElement
-                        title={ dictionary.deleteAllCompletedTodos}
+                        title={ dictionary.tooltips.deleteCompletedTodos}
                         handler={deleteAllCompleted}
                         icon="calendar-check"
                     />
                     <ToolbarElement
-                        title={ dictionary.deleteAllPendingTodos}
+                        title={ dictionary.tooltips.deletePendingTodos}
                         handler={deleteAllPending}
                         icon="calendar"
                     />
                 </Toolbar>
                 
-                <Toolbar label={ dictionary.mainMenuExportLabel} collapsed={active !== 4} clickLabelHandler={() => { setActive(4) }}>
+                <Toolbar label={ dictionary.terms.export } collapsed={activeItem !== 4} clickLabelHandler={() => { setActiveItem(4) }}>
                     <TodoFileExport title={filename} data={data} format={Formats.CSV} />
                     <TodoFileExport title={filename} data={data} format={Formats.JSON} />
                     <TodoFileExport title={filename} data={data} format={Formats.TEXT} />
                 </Toolbar>
                 
-                <Toolbar label={ dictionary.mainMenuImportLabel} collapsed={active !== 5} clickLabelHandler={() => { setActive(5) }}>
+                <Toolbar label={ dictionary.terms.import} collapsed={activeItem !== 5} clickLabelHandler={() => { setActiveItem(5) }}>
                     <ToolbarElement
-                        title={ dictionary.importTodosFromFile}
+                        title={ dictionary.tooltips.importTodosFromFile }
                         handler={openFileImportModal}
                         icon="file"
                     />

@@ -43,14 +43,14 @@ const Counter = ({ value, minValue, maxValue, increaseLabel = '+', decreaseLabel
         <div className="counter-box">
             <div className="toolbar-item-container">
                 <ToolbarElement
-                    title={ increaseLabel }
+                    title={ decreaseLabel }
                     icon="minus-square"
                     handler={ decrement }
                     disabled={ minValue == null ? false : count <= minValue }
                 />
                 <div className="counter">{count}</div>
                 <ToolbarElement
-                    title={ decreaseLabel }
+                    title={ increaseLabel }
                     icon="plus-square"
                     handler={ increment }
                     disabled={ maxValue == null ? false : count >= maxValue }

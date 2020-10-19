@@ -187,6 +187,11 @@ table {
   padding: $box-padding;
   border: 1px solid $dark-gray;
   box-sizing: border-box;
+
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .form-group {
