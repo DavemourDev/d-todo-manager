@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "d-todo-manager",
+  "author": "Davemour",
+  "version": "0.1.0",
+  "description": "Gestiona tus tareas diarias desde el navegador!",
+  "icons": {
+    "192": "logo192.png",
+    "512": "logo512.png"
+  },
+  "browser_action": {
+    "default_icon": "logo192.png",
+    "default_title": "D-Todo-Manager",
+    "default_popup": "index.html"
+  },
+  "sidebar_action": {
+    "default_icon": "logo192.png",
+    "default_title": "D-Todo-Manager",
+    "default_panel": "index.html"
+  },
+  "permissions": ["storage"],
+  "devtools_page": "devtools.html"
+}
