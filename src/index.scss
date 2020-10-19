@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/* CONFIG VARIABLES */
+$default-gap: 5px;
+$toolbar-item-size: 40px;
+$label-width: 100px;
+$darker-gray: #333;
+$dark-gray: #666;
+$lighter-gray: #ccc;
+$completed-color: #8f8;
+$button-padding: 0.25rem;
+$box-padding: 0.25rem;
+$icon-size: 1.5rem;
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.gap {
+  width: $default-gap;
+}
+
+.scale-on-hover {
+  transition: ease 0.4s transform;
+
+  &:hover {
+    transform: scale(2)
+  }
+}
+
+
+/* COUNTER */
+
+.counter-box {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(3, $toolbar-item-size);
+  grid-template-rows: $toolbar-item-size;
+
+  .counter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: $darker-gray;
+    text-align: center;
+  }
+}
+
+/* BUTTONS */
+button, .button {
+  padding: $button-padding;
+  cursor: pointer;
+  background: $dark-gray;
+  border: 1px ridge $darker-gray;
+  color: $lighter-gray;
+  transition: 0.4s ease all;
+  opacity: 0.8;
+  text-align: center;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &:not([disabled]) {
+    &:focus, &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+/* TABLE */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  td, th {
+    border: 1px solid $darker-gray;
+    padding: $box-padding;    
+  }
+
+  th, tfoot td {
+    background: $darker-gray;
+    color: $lighter-gray;
+  } 
+}
+
+.align-center {
+  text-align: center;
+}
+
+.todo-row {
+
+  & > td {
+    background-color: $lighter-gray;
+    transition: ease 0.4s all;
+  }
+
+  &.completed {
+
+    & > td {
+      background-color: $completed-color;
+    }
+  }
+}
+
+
+/* TOOLBAR */
+
+.toolbar {
+  display: grid;
+  grid-auto-flow: column;
+  /* label, element container */
+  grid-template-columns: minmax($label-width, auto) auto;
+  grid-template-rows: $toolbar-item-size;
+  color: $lighter-gray;
+  box-sizing: border-box;
+
+  & + .toolbar {
+    margin-left: $default-gap;
+  }
+
+  .toolbar-item-container {
+    
+    overflow: hidden;
+    
+    &:not(.collapsed) {
+      max-width: 40vw;
+      transition: max-width 0.6s ease-out 0.15s;
+    }
+
+    &.collapsed {
+      // animation: toolbar-items-slide 0.4s linear 0s alternate-reverse; 
+      max-width: 1px;
+      transition: max-width 0.6s ease-out;
+    }
+  }
+
+  &.center {
+    justify-content: center;
+  }
+}
+
+.toolbar-item-container {
+  display: grid;
+  width: fit-content;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, $toolbar-item-size);
+  grid-template-rows: $toolbar-item-size;
+
+  .toolbar-element {
+    padding: 0rem;
+    width: $toolbar-item-size;
+    
+    &.icon {
+      font-size: $icon-size;
+    }
+
+    a {
+      color: $lighter-gray;
+      text-decoration: none;
+    }
+  }
+
+  &.center {
+    justify-content: center;
+  }
+}
+
+/* FORMS */
+
+.label {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: $box-padding;
+  border: 1px solid $dark-gray;
+  box-sizing: border-box;
+
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.form-group {
+  display: grid;
+  grid-auto-flow: column;
+  /* label, input, button */
+  grid-template-columns: minmax($label-width, auto) repeat(auto-fit auto);
+  gap: $default-gap;
+
+  .label, .input {
+    padding: 2 * $button-padding;  
+  }
+
+  .label + .input, .input + button {
+    margin-left: 1rem; 
+  }
+}
+
+.input-file {
+  display: none;
+}
+
+/* FLEXBOX */
+
+.flex {
+  display: flex;
+  
+  &.wrap {
+    flex-wrap: wrap;
+  }
+
+  &.no-wrap {
+    flex-wrap: nowrap;
+  }
+
+  &.row {
+    flex-direction: row;
+  }
+
+  &.column {
+    flex-direction: column;
+  }
+
+  &.between {
+    justify-content: space-between;
+  }
+  
+  &.start {
+    justify-content: flex-start;
+  }
+
+  &.center {
+    justify-content: center;
+  }
+}
+
+/* PANEL */
+
+.panel {
+  background: $darker-gray;
+  color: $lighter-gray;
+  padding: 2 * $box-padding;
+  border: 1px solid $lighter-gray;
+  border-collapse: collapse;
+  box-sizing: border-box;
+}
+
+/* DIALOG */
+
+.dialog--overlay {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($darker-gray, 0.6);
+  
+}
+
+.dialog {
+  text-align: center;
+}

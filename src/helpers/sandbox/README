@@ -1,0 +1,5 @@
+Este directorio contiene funcionalidades experimentales.
+Es simplemente para agrupar todo aquello que simplemente está siendo
+probado antes de ser implementado en la aplicación.
+Se recomienda que estas funcionalidades solamente sean probadas
+dentro del componente Sandbox para evitar conflictos.
